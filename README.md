@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KJEBI (끝내 배우는 이야기)
 
-## Getting Started
+무엇이든 배울 수 있는 세상을 만드는 AI 학습 로드맵 생성 플랫폼입니다.
 
-First, run the development server:
+## 특징
+
+- 🤖 AI 기반 맞춤형 학습 로드맵 자동 생성
+- 💬 각 학습 단계별 질문/답변 기능
+- 📊 학습 진도 추적 및 관리
+- 🔒 비밀번호 기반 접근 제어
+- 🎨 다크 테마 UI (#DFF250 브랜드 컬러)
+- 📱 반응형 디자인 (데스크톱/모바일)
+
+## 시작하기
+
+
+### 설치 및 실행
 
 ```bash
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어보세요.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 로그인
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+앱에 접근하려면 `.env`에 설정한 `ADMIN_PASSWORD`를 입력해야 합니다.
 
-## Learn More
+**현재 비밀번호**:
 
-To learn more about Next.js, take a look at the following resources:
+## 주요 기능
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. 학습 로드맵 생성
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+학습하고 싶은 주제를 입력하면 AI가 자동으로:
+- 단계별 학습 경로 생성
+- 각 단계의 난이도 및 예상 소요 시간 제시
+- 선행 지식 요구사항 파악
+- 추천 시작 단계 제안
 
-## Deploy on Vercel
+### 2. 단계별 질문하기
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+각 학습 단계에서:
+- 궁금한 내용 질문 가능
+- AI가 실시간으로 답변 생성
+- 대화 히스토리 저장 (브라우저 로컬스토리지)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. 진도 관리
+
+- "이해했어요" 버튼으로 완료 표시
+- "되돌리기" 기능으로 진도 수정 가능
+- 전체 진행률 실시간 추적
+
+## 기술 스택
+
+- **Framework**: Next.js 15.5.5 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **AI**: OpenAI GPT-4o-mini
+- **Authentication**: NextAuth.js v5
+- **Font**: IBM Plex Sans
+
+## 데이터 저장
+
+현재 버전은 **데이터베이스 없이** 작동합니다:
+- 로드맵 데이터: 브라우저 localStorage에 저장
+- 대화 내역: localStorage에 포함되어 저장
+- 사용자 세션: 세션 쿠키로 관리
+
+⚠️ **주의사항**:
+- 브라우저 캐시를 지우면 모든 데이터가 삭제됩니다
+- 다른 기기에서는 데이터가 공유되지 않습니다
+- 장기 운영 시 백엔드 데이터베이스 추가를 권장합니다
+
+## 배포하기
+
+### Vercel 배포 (권장)
+
+1. Vercel에 프로젝트 연결
+2. 환경 변수 설정:
+   - `OPENAI_API_KEY`
+   - `AUTH_SECRET` (새로 생성: `openssl rand -base64 32`)
+   - `ADMIN_PASSWORD` (강력한 비밀번호 설정)
+3. 배포 완료!
+
+### 기타 플랫폼
+
+```bash
+# 프로덕션 빌드
+npm run build
+
+# 프로덕션 서버 실행
+npm start
+```
+
+## 보안 고려사항
+
+### 현재 구현된 보안 기능
+
+✅ 비밀번호 기반 접근 제어
+✅ 환경 변수로 시크릿 관리
+✅ NextAuth 세션 기반 인증
+✅ HTTPS 권장 (배포 환경)
+
+### 프로덕션 환경 체크리스트
+
+- [ ] 강력한 `ADMIN_PASSWORD` 설정
+- [ ] `AUTH_SECRET` 랜덤 생성 (`openssl rand -base64 32`)
+- [ ] HTTPS 사용 (Vercel은 자동 제공)
+- [ ] 환경 변수 노출 방지
+- [ ] Rate limiting 추가 고려 (API 남용 방지)
+
+### 추가 보안 개선 가능 사항
+
+프로덕션에서 더 높은 보안이 필요한 경우:
+- 사용자별 계정 시스템 구현
+- 데이터베이스 기반 세션 관리
+- API Rate Limiting
+- CORS 정책 강화
+- 입력 검증 및 Sanitization 강화
+
+## 라이선스
+
+MIT
+
+## 문의
+
+프로젝트 관련 문의사항은 이슈로 남겨주세요.
