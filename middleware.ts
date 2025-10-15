@@ -1,26 +1,25 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { getToken } from 'next-auth/jwt';
 
-export function middleware(req: NextRequest) {
+const PUBLIC_PATHS = ['/login'];
+
+const isPublicPath = (pathname: string) =>
+  PUBLIC_PATHS.includes(pathname) ||
+  pathname.startsWith('/api/auth') ||
+  pathname.startsWith('/_next') ||
+  pathname === '/favicon.ico';
+
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Allow public routes
-  if (
-    pathname.startsWith('/login') ||
-    pathname.startsWith('/api/auth') ||
-    pathname.startsWith('/_next') ||
-    pathname === '/favicon.ico'
-  ) {
+  if (isPublicPath(pathname)) {
     return NextResponse.next();
   }
 
-  // Check for NextAuth session cookies (v5 and legacy names)
-  const hasSession =
-    req.cookies.get('authjs.session-token') ||
-    req.cookies.get('__Secure-authjs.session-token') ||
-    req.cookies.get('next-auth.session-token') ||
-    req.cookies.get('__Secure-next-auth.session-token');
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
 
-  if (!hasSession) {
+  if (!token) {
     const loginUrl = new URL('/login', req.url);
     loginUrl.searchParams.set('callbackUrl', pathname);
     return NextResponse.redirect(loginUrl);
@@ -30,5 +29,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!api/auth|_next/static|_next/image|favicon.ico).*)'],
 };
