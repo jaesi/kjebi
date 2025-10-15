@@ -33,7 +33,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: '/login',
   },
   callbacks: {
-    authorized: async ({ auth }) => {
+    authorized: async ({ request, auth }) => {
+      const { pathname } = request.nextUrl;
+      if (pathname.startsWith('/login') || pathname.startsWith('/api/auth')) {
+        return true;
+      }
       return !!auth;
     },
   },
