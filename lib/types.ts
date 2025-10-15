@@ -4,12 +4,14 @@ export interface Step {
   description: string;
   aiExplanation: string;
   why: string;
+  keyConcepts?: string[]; // Key concepts to understand in this step
   estimatedHours: number;
   difficulty: 'easy' | 'medium' | 'hard';
   isOptional: boolean;
   prerequisites: number[];
   isCompleted: boolean;
   isExpanded: boolean;
+  isWhyExpanded?: boolean; // Track if "why" section is expanded
   conversations: Conversation[];
 }
 

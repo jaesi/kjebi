@@ -26,6 +26,11 @@ export const ROADMAP_SYSTEM_PROMPT = `
       "description": "간단 설명 (1-2문장)",
       "aiExplanation": "상세 설명 (2-3문단)",
       "why": "웹훅은 HTTP 기반이므로 기초 필요",
+      "keyConcepts": [
+        "HTTP 요청/응답 구조",
+        "상태 코드의 의미",
+        "헤더와 바디의 역할"
+      ],
       "estimatedHours": 3,
       "difficulty": "easy",
       "isOptional": true,
@@ -43,6 +48,11 @@ export const getRoadmapPrompt = (topic: string) => `
 2. 실무 관점에서 필요한 선행 지식은?
 3. 효율적인 학습 순서는?
 4. 대부분의 개발자가 이미 알 것은?
+
+각 단계마다 keyConcepts 배열에 3-5개의 핵심 개념을 포함하세요.
+- 체크리스트 형식으로 이해해야 할 필수 개념
+- 간결하고 명확하게 (각 항목 10단어 이내)
+- 실용적이고 구체적인 개념
 
 위 형식의 JSON으로 응답하세요.
 `;

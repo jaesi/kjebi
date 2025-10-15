@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react';
 export default function RoadmapPage() {
   const params = useParams();
   const id = params.id as string;
-  const { roadmap, completeStep, uncompleteStep, toggleStepExpanded, addConversation } = useRoadmap(id);
+  const { roadmap, completeStep, uncompleteStep, toggleStepExpanded, toggleWhyExpanded, addConversation } = useRoadmap(id);
   const [activeStepId, setActiveStepId] = useState<number | null>(null);
   const [streamingAnswer, setStreamingAnswer] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
@@ -159,6 +159,7 @@ export default function RoadmapPage() {
                   onComplete={() => completeStep(step.id)}
                   onUncomplete={() => uncompleteStep(step.id)}
                   onToggleExpand={() => toggleStepExpanded(step.id)}
+                  onToggleWhy={() => toggleWhyExpanded(step.id)}
                 />
               );
             })}

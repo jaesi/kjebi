@@ -11,6 +11,7 @@ interface StepCardProps {
   onComplete: () => void;
   onUncomplete: () => void;
   onToggleExpand: () => void;
+  onToggleWhy: () => void;
 }
 
 export function StepCard({
@@ -20,7 +21,8 @@ export function StepCard({
   onQuestionClick,
   onComplete,
   onUncomplete,
-  onToggleExpand
+  onToggleExpand,
+  onToggleWhy
 }: StepCardProps) {
   return (
     <div
@@ -53,11 +55,35 @@ export function StepCard({
         {step.isOptional && <span className="text-[#DFF250]">선택</span>}
       </div>
 
-      {/* Why section - always visible */}
-      <div className="mb-4 p-3 bg-[#1a1a1a] rounded-lg border border-[#3a3a3a]">
-        <p className="text-sm text-gray-400">
-          <span className="font-semibold text-gray-300">왜 필요한가요?</span> {step.why}
-        </p>
+      {/* Key Concepts Checklist */}
+      {step.keyConcepts && step.keyConcepts.length > 0 && (
+        <div className="mb-4 p-4 bg-[#1a1a1a] rounded-lg border border-[#3a3a3a]">
+          <h4 className="text-sm font-semibold text-gray-300 mb-3">✓ 핵심 개념</h4>
+          <ul className="space-y-2">
+            {step.keyConcepts.map((concept, index) => (
+              <li key={index} className="flex items-start gap-2 text-sm text-gray-400">
+                <span className="text-[#DFF250] mt-0.5">□</span>
+                <span>{concept}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Why section - collapsible */}
+      <div className="mb-4">
+        <button
+          onClick={onToggleWhy}
+          className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-gray-100"
+        >
+          <span>💡 왜 알아야하나요?</span>
+          <span>{step.isWhyExpanded ? '▲' : '▼'}</span>
+        </button>
+        {step.isWhyExpanded && (
+          <div className="mt-3 p-3 bg-[#1a1a1a] rounded-lg border border-[#3a3a3a]">
+            <p className="text-sm text-gray-400">{step.why}</p>
+          </div>
+        )}
       </div>
 
       {/* Expandable explanation */}

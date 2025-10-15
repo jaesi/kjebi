@@ -60,6 +60,21 @@ export function useRoadmap(id: string | null) {
     });
   };
 
+  const toggleWhyExpanded = (stepId: number) => {
+    if (!roadmap) return;
+
+    const updatedSteps = roadmap.steps.map(step =>
+      step.id === stepId
+        ? { ...step, isWhyExpanded: !step.isWhyExpanded }
+        : step
+    );
+
+    setRoadmap({
+      ...roadmap,
+      steps: updatedSteps
+    });
+  };
+
   const addConversation = (stepId: number, conversation: Conversation) => {
     if (!roadmap) return;
 
@@ -84,6 +99,7 @@ export function useRoadmap(id: string | null) {
     completeStep,
     uncompleteStep,
     toggleStepExpanded,
+    toggleWhyExpanded,
     addConversation
   };
 }
