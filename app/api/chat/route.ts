@@ -45,11 +45,25 @@ export async function POST(request: Request) {
 
     const aiResponse = JSON.parse(content);
 
+    // Ensure answer is a string, not an object
+    let answerText = aiResponse.detail || aiResponse.answer || '답변을 생성할 수 없습니다.';
+    if (typeof answerText === 'object') {
+      // Convert object to formatted string
+      answerText = Object.entries(answerText)
+        .map(([key, value]) => `${key}: ${value}`)
+        .join('\n\n');
+    }
+
+    let summaryText = aiResponse.summary || question;
+    if (typeof summaryText === 'object') {
+      summaryText = JSON.stringify(summaryText);
+    }
+
     const conversation: Conversation = {
       id: `conv-${Date.now()}`,
       question,
-      answer: aiResponse.detail || aiResponse.answer || '답변을 생성할 수 없습니다.',
-      answerSummary: aiResponse.summary || question,
+      answer: String(answerText),
+      answerSummary: String(summaryText),
       timestamp: new Date().toISOString()
     };
 
