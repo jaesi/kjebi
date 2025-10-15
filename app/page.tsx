@@ -87,9 +87,9 @@ export default function Home() {
         <div className="mt-8 space-y-4 text-center">
           <p className="text-base font-bold text-[#DFF250]">💡 이런 고민 있으신가요?</p>
           <div className="grid gap-2 text-sm text-gray-400">
-            <p>📚 "뭐부터 배워야 할지 모르겠어요"</p>
-            <p>🤔 "내가 제대로 가고 있는 건가요?"</p>
-            <p>⏰ "학습 시간을 너무 많이 낭비하는 것 같아요"</p>
+            <p>📚 &quot;뭐부터 배워야 할지 모르겠어요&quot;</p>
+            <p>🤔 &quot;내가 제대로 가고 있는 건가요?&quot;</p>
+            <p>⏰ &quot;학습 시간을 너무 많이 낭비하는 것 같아요&quot;</p>
           </div>
         </div>
       </main>

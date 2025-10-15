@@ -1,6 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import { useRoadmap } from '@/hooks/useRoadmap';
 import { StepCard } from '@/components/StepCard';
 import { QuestionPanel } from '@/components/QuestionPanel';
@@ -14,7 +15,7 @@ export default function RoadmapPage() {
   const [activeStepId, setActiveStepId] = useState<number | null>(null);
   const [streamingAnswer, setStreamingAnswer] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState('');
+  // Removed unused currentQuestion state
 
   useEffect(() => {
     // If roadmap is not in localStorage, redirect to home
@@ -32,7 +33,6 @@ export default function RoadmapPage() {
     const step = roadmap.steps.find(s => s.id === stepId);
     if (!step) return;
 
-    setCurrentQuestion(question);
     setIsStreaming(true);
     setStreamingAnswer('');
 
@@ -105,12 +105,12 @@ export default function RoadmapPage() {
                 {roadmap.totalSteps}단계 · {roadmap.estimatedTotalHours}시간 · 진행률 {roadmap.progress}%
               </p>
             </div>
-            <a
+            <Link
               href="/"
               className="text-sm text-[#DFF250] hover:text-[#DFF250]/80"
             >
               ← 홈으로
-            </a>
+            </Link>
           </div>
 
           {/* Progress bar */}
@@ -168,7 +168,6 @@ export default function RoadmapPage() {
         {/* Question Panel - Split view on desktop, overlay on mobile */}
         <QuestionPanel
           isOpen={activeStepId !== null}
-          stepId={activeStepId || 0}
           stepTitle={activeStep?.title || ''}
           conversations={activeStep?.conversations || []}
           onClose={() => setActiveStepId(null)}

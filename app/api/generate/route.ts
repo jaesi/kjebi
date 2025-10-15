@@ -52,7 +52,7 @@ export async function POST(request: Request) {
       currentStep: 1,
       totalSteps: aiResponse.totalSteps || aiResponse.steps?.length || 0,
       estimatedTotalHours: aiResponse.estimatedTotalHours || 0,
-      steps: (aiResponse.steps || []).map((step: any, index: number) => ({
+      steps: (aiResponse.steps || []).map((step: Partial<Step>, index: number) => ({
         ...step,
         id: step.id || index + 1,
         isCompleted: false,

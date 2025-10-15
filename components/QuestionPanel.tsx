@@ -5,7 +5,6 @@ import { useState, useEffect, useRef } from 'react';
 
 interface QuestionPanelProps {
   isOpen: boolean;
-  stepId: number;
   stepTitle: string;
   conversations: Conversation[];
   onClose: () => void;
@@ -16,7 +15,6 @@ interface QuestionPanelProps {
 
 export function QuestionPanel({
   isOpen,
-  stepId,
   stepTitle,
   conversations,
   onClose,

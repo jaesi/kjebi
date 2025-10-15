@@ -37,7 +37,7 @@ export function LoadingScreen() {
       clearInterval(progressInterval);
       clearTimeout(stepTimeout);
     };
-  }, []);
+  }, [steps.length]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0f0f0f] to-[#1a1a1a] flex items-center justify-center p-8">

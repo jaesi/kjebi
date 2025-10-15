@@ -2,7 +2,6 @@
 
 import { Step } from '@/lib/types';
 import { getDifficultyEmoji } from '@/lib/utils';
-import { useState } from 'react';
 
 interface StepCardProps {
   step: Step;
