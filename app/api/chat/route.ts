@@ -3,6 +3,8 @@ import OpenAI from 'openai';
 import { CHAT_SYSTEM_PROMPT, getChatPrompt } from '@/lib/prompts';
 import { Conversation } from '@/lib/types';
 
+export const runtime = 'nodejs';
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });

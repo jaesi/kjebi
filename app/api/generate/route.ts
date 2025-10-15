@@ -4,6 +4,8 @@ import { ROADMAP_SYSTEM_PROMPT, getRoadmapPrompt } from '@/lib/prompts';
 import { Roadmap, Step } from '@/lib/types';
 import { calculateProgress } from '@/lib/utils';
 
+export const runtime = 'nodejs';
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
