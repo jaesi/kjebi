@@ -1,5 +1,7 @@
 'use client';
 
+export const runtime = 'nodejs';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LoadingScreen } from '@/components/LoadingScreen';

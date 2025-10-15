@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-
-export const runtime = 'nodejs';
 import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
