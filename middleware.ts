@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
+import type { NextRequest } from 'next/server';
+import { getToken } from 'next-auth/jwt';
 
 const PUBLIC_PATHS = ['/login'];
 
@@ -9,14 +10,16 @@ const isPublicPath = (pathname: string) =>
   pathname.startsWith('/_next') ||
   pathname === '/favicon.ico';
 
-export default auth((req) => {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (isPublicPath(pathname)) {
     return NextResponse.next();
   }
 
-  if (!req.auth) {
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
+
+  if (!token) {
     const loginUrl = new URL('/login', req.url);
     loginUrl.searchParams.set('callbackUrl', pathname);
     return NextResponse.redirect(loginUrl);
