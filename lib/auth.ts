@@ -32,21 +32,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: '/login',
   },
-  callbacks: {
-    authorized: async ({ request, auth }) => {
-      const { pathname } = request.nextUrl;
-      // Public paths that don't require authentication
-      if (
-        pathname === '/' ||
-        pathname.startsWith('/login') ||
-        pathname.startsWith('/api/auth') ||
-        pathname.startsWith('/_next') ||
-        pathname === '/favicon.ico'
-      ) {
-        return true;
-      }
-      // All other paths (like /roadmap) require authentication
-      return !!auth;
-    },
-  },
 });
