@@ -6,10 +6,17 @@ export function calculateProgress(steps: Step[]): number {
 }
 
 export function isStepLocked(step: Step, allSteps: Step[]): boolean {
-  return step.prerequisites.some(preId => {
+  // Lock if any prerequisite step is not completed
+  const hasUncompletedPrerequisites = step.prerequisites.some(preId => {
     const preStep = allSteps.find(s => s.id === preId);
     return preStep && !preStep.isCompleted;
   });
+
+  // Also lock if the previous step (by ID) is not completed
+  const previousStep = allSteps.find(s => s.id === step.id - 1);
+  const isPreviousStepIncomplete = previousStep ? !previousStep.isCompleted && !previousStep.isOptional : false;
+
+  return hasUncompletedPrerequisites || isPreviousStepIncomplete;
 }
 
 export function getDifficultyEmoji(difficulty: string): string {

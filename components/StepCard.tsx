@@ -53,13 +53,20 @@ export function StepCard({
         {step.isOptional && <span className="text-[#DFF250]">선택</span>}
       </div>
 
+      {/* Why section - always visible */}
+      <div className="mb-4 p-3 bg-[#1a1a1a] rounded-lg border border-[#3a3a3a]">
+        <p className="text-sm text-gray-400">
+          <span className="font-semibold text-gray-300">왜 필요한가요?</span> {step.why}
+        </p>
+      </div>
+
       {/* Expandable explanation */}
       <div className="mb-4">
         <button
           onClick={onToggleExpand}
           className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-gray-100"
         >
-          <span>📖 설명</span>
+          <span>📖 상세 설명</span>
           <span>{step.isExpanded ? '▲' : '▼'}</span>
         </button>
         {step.isExpanded && (
@@ -67,11 +74,6 @@ export function StepCard({
             <p className="text-sm text-gray-300 whitespace-pre-line">
               {step.aiExplanation}
             </p>
-            <div className="mt-3 pt-3 border-t border-[#3a3a3a]">
-              <p className="text-sm text-gray-400">
-                <span className="font-semibold">왜 필요한가요?</span> {step.why}
-              </p>
-            </div>
           </div>
         )}
       </div>

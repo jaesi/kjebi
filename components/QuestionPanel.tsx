@@ -46,6 +46,17 @@ export function QuestionPanel({
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Enter without Shift: submit
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (question.trim() && !isAsking) {
+        handleSubmit(e as unknown as React.FormEvent);
+      }
+    }
+    // Shift+Enter: allow new line (default behavior)
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -92,7 +103,8 @@ export function QuestionPanel({
             <textarea
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
-              placeholder="궁금한 것을 질문해보세요..."
+              onKeyDown={handleKeyDown}
+              placeholder="궁금한 것을 질문해보세요... (Enter: 전송, Shift+Enter: 줄바꿈)"
               className="w-full px-3 py-2 bg-[#1a1a1a] text-gray-100 border border-[#3a3a3a] rounded-lg resize-none focus:ring-2 focus:ring-[#DFF250] focus:border-transparent outline-none placeholder-gray-500"
               rows={3}
               disabled={isAsking}
