@@ -9,7 +9,7 @@ const openai = new OpenAI({
 
 export async function POST(request: Request) {
   try {
-    const { _roadmapId, _stepId, question, stepTitle } = await request.json();
+    const { question, stepTitle } = await request.json();
 
     if (!question || typeof question !== 'string') {
       return NextResponse.json(

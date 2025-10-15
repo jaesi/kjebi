@@ -1,5 +1,5 @@
 import { useLocalStorage } from './useLocalStorage';
-import { Roadmap, Step, Conversation } from '@/lib/types';
+import { Roadmap, Conversation } from '@/lib/types';
 import { calculateProgress } from '@/lib/utils';
 
 export function useRoadmap(id: string | null) {
