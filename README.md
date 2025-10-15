@@ -95,7 +95,7 @@ npm start
 ### 프로덕션 환경 체크리스트
 
 - [ ] 강력한 `ADMIN_PASSWORD` 설정
-- [ ] `AUTH_SECRET` 랜덤 생성 (`openssl rand -base64 32`)
+- [ ] `NEXTAUTH_SECRET` 랜덤 생성 (`openssl rand -base64 32`)
 - [ ] HTTPS 사용 (Vercel은 자동 제공)
 - [ ] 환경 변수 노출 방지
 - [ ] Rate limiting 추가 고려 (API 남용 방지)
