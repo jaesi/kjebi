@@ -33,6 +33,6 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // Protect only roadmap pages; homepage and login are public.
-  matcher: ['/roadmap/:path*'],
+  // Protect all pages except public paths (checked in middleware function)
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 };
